@@ -4,3 +4,4 @@ bin
 *.dvi
 *.log
 data
+*.swp

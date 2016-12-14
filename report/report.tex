@@ -16,4 +16,30 @@
 % lru cache for all the rows processed in the kernel
 % svm.cpp dot function (line no. 294). Modifying the dot function is difficult 
 % as the internal datastructures has to be changed.
+
+\newpage
+
+\section{Abstract}
+This project is an attempt to implement the Support Vector Machine classifier using GPUs.
+We tried two approaches: 
+The first one is to try to port the Sequential Minimal Optimization part to the GPU\@.
+The second one is to implement the gram matrix calculation to GPUs.
+We end up using the second approach and we show show performance improvements over the conventional approach used by libsvm. 
+\section{Introduction}
+What is the problem you are trying to solve? Why is it important? What are your contributions?
+\section{Background Information}
+You can put here any needed background information about the problem at hand and any domain-specific knowledge.
+\section{Literature Survey}
+Previous work in this problem and what are the pros and cons of each solution.
+\section{Proposed solution}
+\section{Experimental Setup}
+Specs of the machine, problem size, etc.
+\section{Experimental Result \& Analysis}
+What are your findings. I expect much deeper description that ``As we can see X is better than Y''.
+\section{Conclusions}
+What are your main findings? Can you generalize them?
+
+\bibliographystyle{plain}
+\bibliography{references}
+
 \end{document}

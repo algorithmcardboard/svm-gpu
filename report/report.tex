@@ -3,4 +3,17 @@
 \title{Libsvm using GPU}
 \author{Anirudhan J. Rajagopalan \\ N18824115 \\ ajr619}
 \maketitle
+
+% write about lib svm format (svm light)
+% two possible places for optimizations.  
+% Calculating the gram matrix
+% Porting the Sequential Minimal Optimization to GPU.
+
+% Structures in libsvm
+% svm_problem
+% svm_node
+
+% lru cache for all the rows processed in the kernel
+% svm.cpp dot function (line no. 294). Modifying the dot function is difficult 
+% as the internal datastructures has to be changed.
 \end{document}

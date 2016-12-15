@@ -76,8 +76,22 @@ Subject to: $\sum_{i=1}^{l} y_{i}\alpha_{i} = 0$ and $0 \le \alpha_{i} \le C, $ 
 With all the theory mentioned as briefly as possible, we can proceed to find a way to implement this interesting problem using GPUs.
 
 \section{Literature Survey}
-Previous work in this problem and what are the pros and cons of each solution.
+There are a couple of previous work in this area.  We mainly use
+\begin{enumerate}
+    \item Parallel Multiclass Classification Using SVMs on GPUs by Herrero-Lopez, Sergio and Williams, John R. and Sanchez, Abel~\cite{Herrero-Lopez:2010:PMC:1735688.1735692}.
+    \item GPU acceleration for support vector machines by Athanasopoulos, Andreas and Dimou, Anastasios and Mezaris, Vasileios and Kompatsiaris, Ioannis~\cite{athanasopoulos2011gpu}
+\end{enumerate}
+
+There are chapters in Nvidia GPU Gems book which also describe a way to parallelize the SVM implementation.  It is almost similar to the method published by Herrero-Lopez.
+
 \section{Proposed solution}
+We propose two different approaches for implementing SVMs using GPU\@.
+
+\begin{enumerate}
+\item Implement the Sequential Minimal Optimization method for solving the dual problem using GPUs and OpenMpi.
+\item Implement the Gram matrix calculation using GPU and use libsvm to solve the actual SMO problem.
+\end{enumerate}
+
 \section{Experimental Setup}
 Specs of the machine, problem size, etc.
 \section{Experimental Result \& Analysis}

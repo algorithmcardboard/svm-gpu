@@ -2,6 +2,8 @@
 \usepackage{hyperref}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{color,graphicx} 
+
 \begin{document}
 \title{Libsvm using GPU}
 \author{Anirudhan J. Rajagopalan \\ N18824115 \\ ajr619}
@@ -84,8 +86,25 @@ There are a couple of previous work in this area.  We mainly use
 
 There are chapters in Nvidia GPU Gems book which also describe a way to parallelize the SVM implementation.  It is almost similar to the method published by Herrero-Lopez.
 
+Our implementation of SVM is going to be loosely based on libsvm's implementation.  As such, it became important to understand libsvm's codebase.
 
-\textit{\textbf{Write about libsvm and possible ways to change it}}
+Libsvm expects data in svm-light format.  Each line of the input file has the structure defined in Fig~\ref{fig:svmlight}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{images/svmlight}
+  \caption{Svm light format.\label{fig:svmlight}}
+\end{figure}
+
+Libsvm uses internal structures such as \textit{svm\_node} and \textit{svm\_problem} to read the input file and store it internally.
+After reading the input file, it calculates the Kernel matrix which is then used for finding the maximum margin classifier.
+
+An input file consists of samples.  
+Each samples consists of target and features.
+
+Each and every feature is stored in a svm\_node with index and value.
+All these are stored in an array per sample.
+This structure doesn't easily translate to vector representation and hence plugging in the GPU based gram matrix calculation or SMO implementation.
 
 \section{Proposed solution}
 We propose two different approaches for implementing SVMs using GPU\@.
@@ -95,12 +114,16 @@ We propose two different approaches for implementing SVMs using GPU\@.
 \item Implement the Gram matrix calculation using GPU and use libsvm to solve the actual SMO problem.
 \end{enumerate}
 
+We started out by understanding the libsvm package.  
+The code doesn't have much documentation and understanding the code base proved to be really hard.
+
 \section{Experimental Setup}
 Specs of the machine, problem size, etc.
 \section{Experimental Result \& Analysis}
 What are your findings. I expect much deeper description that ``As we can see X is better than Y''.
+
 \section{Conclusions}
-What are your main findings? Can you generalize them?
+
 
 \bibliographystyle{plain}
 \bibliography{references}

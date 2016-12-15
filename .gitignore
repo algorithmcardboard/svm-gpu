@@ -5,3 +5,5 @@ bin
 *.log
 data
 *.swp
+*.bbl
+*.blg

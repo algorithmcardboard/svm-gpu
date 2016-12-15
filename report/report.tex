@@ -25,7 +25,7 @@
 \newpage
 
 \section{Abstract}
-This project is an attempt to implement the Support Vector Machine~\cite{cortes1995} classifier using GPUs.
+This project is an attempt to implement the Support Vector Machine~\cite{cortes1995} classifier using GPUs.  We also attempted to find a hardware that suits the implementation of SVM that we have using GPGPU simulator.
 We tried two approaches: 
 The first one is to try to port the Sequential Minimal Optimization part to the GPU\@.
 The second one is to implement the Gram matrix~\cite{wiki:gram_matrix} calculation to GPUs.
@@ -114,16 +114,22 @@ We propose two different approaches for implementing SVMs using GPU\@.
 \item Implement the Gram matrix calculation using GPU and use libsvm to solve the actual SMO problem.
 \end{enumerate}
 
-We started out by understanding the libsvm package.  
-The code doesn't have much documentation and understanding the code base proved to be really hard.
-
 \section{Experimental Setup}
-Specs of the machine, problem size, etc.
+We use cuda2 and cuda5 machines for all the experiments.
+The cuda machines got surprisingly slow in the last few days and I resorted to using NYU HPC machines with Titan GPU for later experiments.
+We also use MNIST~\cite{lecun1998mnist} dataset for all the experiments.
+
+MNIST dataset contains a total of 60,000 samples for test and 10,000 samples for test.
+We track the time, accuracy of test after training on 500, 1000, 6000, 30000 and 60000 samples.
+
 \section{Experimental Result \& Analysis}
+
+We implemented matrix multiplication for generating the gram matrix similar to the implementation given in~\cite{matrixmuleg}.
+
+
 What are your findings. I expect much deeper description that ``As we can see X is better than Y''.
 
 \section{Conclusions}
-
 
 \bibliographystyle{plain}
 \bibliography{references}

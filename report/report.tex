@@ -25,7 +25,7 @@
 \newpage
 
 \section{Abstract}
-This project is an attempt to implement the Support Vector Machine~\cite{cortes1995} classifier using GPUs.  We also attempted to find a hardware that suits the implementation of SVM that we have using GPGPU simulator.
+This project is an attempt to implement the Support Vector Machine~\cite{cortes1995} classifier using GPUs.
 We tried two approaches: 
 The first one is to try to port the Sequential Minimal Optimization part to the GPU\@.
 The second one is to implement the Gram matrix~\cite{wiki:gram_matrix} calculation to GPUs.
@@ -120,16 +120,36 @@ The cuda machines got surprisingly slow in the last few days and I resorted to u
 We also use MNIST~\cite{lecun1998mnist} dataset for all the experiments.
 
 MNIST dataset contains a total of 60,000 samples for test and 10,000 samples for test.
-We track the time, accuracy of test after training on 500, 1000, 6000, 30000 and 60000 samples.
+We track the time, accuracy of test after training on 600, 1200, 6000, 15000, 30000 and 60000 samples.
+
+
+I started out with implementing the SMO in GPU following the reference implementation at~\cite{dpsvm}.
+The reference implementation uses OpenMPI, CUDA, Thrust, and BLAS (cuBLAS, cBLAS, and BLAS) libraries.
+Even though I had the reference implementation, understanding and reimplementing the reference implementation proved to be a difficult task.
+After working on the reference implementation for two days, I started to search for alternate methods to speedup the SVM classifier.
+
+
+Libsvm computes the kernel function and caches them using a LRU cache.
+The LRU cache has a fixed maximum size.  
+So, if we have a huge amount of data, then the number of rows from the kernel matrix that can be cached will be less.
+Whenever an entry has to be created in the cache, a new row of the kernel has to be calculated and pushed into the cache.
 
 \section{Experimental Result \& Analysis}
 
 We implemented matrix multiplication for generating the gram matrix similar to the implementation given in~\cite{matrixmuleg}.
+We were able to get the same accuracy for both implementations.
 
+Since the implementation I am using was cuda blas implementation, I cound't find a way to optimize it further.  
+Also, we can observe that there are huge performance improvement in case of larger datasets.
 
-What are your findings. I expect much deeper description that ``As we can see X is better than Y''.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=1\textwidth]{images/gpuvscpu}
+  \caption{Mnist training gpu vs cpu performance.\label{fig:gpuvscpu}}
+\end{figure}
 
 \section{Conclusions}
+
 
 \bibliographystyle{plain}
 \bibliography{references}
